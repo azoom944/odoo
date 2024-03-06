@@ -1,0 +1,68 @@
+<odoo>
+
+        <record id="ticket_tree_view" model="ir.ui.view">
+                <field name="name">Ticket Tree View</field>
+                <field name="model">todo.app.ticket</field>
+                <field name="arch" type="xml">
+                        <tree>
+                                <field name="name"/>
+                                <field name="state"/>
+                                <field name="file"/>
+                                <field name="description"/>
+                                <field name="tag"/>
+                                <field name="number"/>
+                        </tree>
+                </field>
+        </record>
+
+        <record id="ticket_form_view" model="ir.ui.view">
+                <field name="name">Ticket Form View</field>
+                <field name="model">todo.app.ticket</field>
+                <field name="arch" type="xml">
+                        <form>
+                          <sheet>
+                                  <group>
+                                         <group>
+                                                  <field name="name"/>
+                                                  <field name="state"/>
+                                                  <field name="number"/>
+                                         </group>
+                                         <group>
+                                                 <field name="file"/>
+                                                 <field name="tag"/>
+                                         </group>
+                                  </group>
+                                  <notebook>
+                                          <page string="Description">
+                                                  <field name="description"/>
+                                          </page>
+                                  </notebook>
+                          </sheet>
+                        </form>
+                </field>
+        </record>
+
+        <record id="ticket_action" model="ir.actions.act_window">
+        <field name="name">To Do Tickets</field>
+        <field name="res_model">todo.app.ticket</field>
+        <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="tickets"
+              name="All Tickets"
+              parent="ticket_root_menu"
+              action="ticket_action"/>
+
+        <record id="my_ticket_action" model="ir.actions.act_window">
+        <field name="name">To Do My Tickets</field>
+        <field name="res_model">todo.app.ticket</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('create_uid','=',uid)]</field>
+        </record>
+
+        <menuitem id="My_tickets"
+              name="My Tickets"
+              parent="ticket_root_menu"
+              action="my_ticket_action"/>
+
+</odoo>
